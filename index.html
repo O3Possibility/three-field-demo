@@ -26,7 +26,17 @@
   --money: #10b981;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none !important; }
+
+body, body * {
+  font-family: 'DM Sans', sans-serif !important;
+  text-decoration: none !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, div, strong, b, em {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+}
 
 body {
   background: var(--bg);
@@ -394,7 +404,7 @@ canvas#mainChart { width: 100%; height: 320px; }
 .plat-overlay h3 { font-size: 20px; font-weight: 500; margin-bottom: 8px; }
 .plat-overlay p { font-size: 13px; color: var(--text-dim); max-width: 440px; line-height: 1.6; }
 
-canvas#platChart { margin-top: 16px; width: 100%; max-width: 500px; height: 90px; }
+canvas#platChart { margin-top: 16px; width: 100%; max-width: 560px; height: 90px; display: block; }
 
 /* ── Diagnosis + events row ── */
 .diag-row {
@@ -814,7 +824,7 @@ canvas#platChart { margin-top: 16px; width: 100%; max-width: 500px; height: 90px
 
 <div class="section hero">
   <div class="hero-label">Three-Field Retention Intelligence</div>
-  <h1>You're watching one signal.<br>You're <strong>missing the other two.</strong></h1>
+  <h1 style="font-family:'DM Sans',sans-serif;text-decoration:none;">You're watching one signal.<br>You're <span style="font-weight:700;text-decoration:none;">missing the other two.</span></h1>
   <p class="hero-sub">Your platform measures physical output. That's one of three fields that determine whether an athlete stays or disappears. The other two — life structure and declared intent — sit in data you already collect but don't use.</p>
 
   <div class="revenue-bar">
@@ -1223,7 +1233,10 @@ function drawPlat(idx){
   const c=document.getElementById('platChart');
   const ctx=c.getContext('2d');
   const dpr=window.devicePixelRatio||1;
-  const pw=Math.min(500, c.parentElement?c.parentElement.getBoundingClientRect().width-48:300);
+  // Use the chart-box width since the overlay parent may be hidden
+  const chartBox=document.querySelector('.chart-box');
+  const boxW=chartBox?chartBox.getBoundingClientRect().width:600;
+  const pw=Math.min(boxW-96, 560);
   const ph=90;
   c.width=pw*dpr; c.height=ph*dpr;
   c.style.width=pw+'px'; c.style.height=ph+'px';
@@ -1257,7 +1270,7 @@ function update(){
   drawMain(curA); drawPlat(curA);
 
   const ov=document.getElementById('platOverlay');
-  if(curV==='plat'){ ov.classList.add('visible'); document.getElementById('plat-text').textContent=a.platText; }
+  if(curV==='plat'){ ov.classList.add('visible'); document.getElementById('plat-text').textContent=a.platText; requestAnimationFrame(()=>drawPlat(curA)); }
   else ov.classList.remove('visible');
 
   document.getElementById('legend').style.opacity=curV==='plat'?'0':'1';
