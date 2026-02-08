@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three-Field Retention Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0f;
+  --surface: #12141a;
+  --surface-2: #1a1d26;
+  --surface-3: #22252f;
+  --border: #2a2d38;
+  --border-light: #353845;
+  --text: #e8e9ed;
+  --text-dim: #7a7d8a;
+  --text-muted: #4a4d58;
+  --field-is: #3b82f6;
+  --field-do: #f59e0b;
+  --field-say: #10b981;
+  --combined: #e8e9ed;
+  --hazard: #ef4444;
+  --refusal: #a855f7;
+  --accent: #3b82f6;
+  --money: #10b981;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Section wrapper ── */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ══════════════════════════════════════
+   SECTION 1 — HERO / BLIND SPOT
+   ══════════════════════════════════════ */
+
+.hero {
+  padding: 56px 0 0;
+}
+
+.hero-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero h1 strong {
+  font-weight: 700;
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-dim);
+  max-width: 640px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Revenue impact bar */
+.revenue-bar {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.rev-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.rev-card .rev-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.rev-card .rev-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.rev-card .rev-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.rev-value.loss { color: var(--hazard); }
+.rev-value.blind { color: var(--field-do); }
+.rev-value.opp { color: var(--money); }
+
+/* ══════════════════════════════════════
+   SECTION 2 — SCORING EXPLAINER
+   ══════════════════════════════════════ */
+
+.explainer {
+  margin-top: 40px;
+}
+
+.explainer-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.explainer-left { flex: 1; }
+.explainer-right { flex: 1; }
+
+.sec-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.sec-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.sec-body {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+.sec-body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.ex-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ex-block {
+  background: var(--surface-2);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.ex-block-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.ex-calc {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.ex-danger { color: var(--hazard); font-weight: 700; }
+
+.ex-result {
+  font-family: 'Space Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ex-result.safe { color: var(--field-do); }
+.ex-result.danger { color: var(--hazard); }
+
+.ex-verdict {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-dim);
+  margin-left: 6px;
+}
+
+.ex-footnote {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════
+   SECTION 3 — THREE FIELD CARDS + CHART
+   ══════════════════════════════════════ */
+
+.fields-bar {
+  margin-top: 40px;
+  display: flex;
+  gap: 12px;
+}
+
+.field-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  border-top: 3px solid transparent;
+}
+
+.field-card.is-c { border-top-color: var(--field-is); }
+.field-card.do-c { border-top-color: var(--field-do); }
+.field-card.say-c { border-top-color: var(--field-say); }
+
+.field-card .f-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.field-card.is-c .f-name { color: var(--field-is); }
+.field-card.do-c .f-name { color: var(--field-do); }
+.field-card.say-c .f-name { color: var(--field-say); }
+
+.field-card .f-full {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.field-card .f-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.field-card .f-value {
+  font-family: 'Space Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* Chart + controls area */
+.dash-area {
+  margin-top: 24px;
+}
+
+.dash-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.user-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.user-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.user-tab:hover { border-color: var(--text-muted); color: var(--text); }
+.user-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.view-toggle {
+  margin-left: auto;
+  display: flex;
+  gap: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.v-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.v-btn.active { background: var(--surface-2); color: var(--text); }
+
+/* Chart box */
+.chart-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.chart-t { font-size: 15px; font-weight: 500; }
+.chart-st { font-size: 12px; color: var(--text-dim); margin-top: 3px; }
+
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  color: var(--text-dim);
+}
+
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+canvas#mainChart { width: 100%; height: 320px; }
+
+/* Platform overlay */
+.plat-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10,11,15,0.95);
+  border-radius: 16px;
+  z-index: 10;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.plat-overlay.visible { display: flex; }
+
+.plat-overlay h3 { font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+.plat-overlay p { font-size: 13px; color: var(--text-dim); max-width: 440px; line-height: 1.6; }
+
+canvas#platChart { margin-top: 16px; width: 100%; max-width: 500px; height: 90px; }
+
+/* ── Diagnosis + events row ── */
+.diag-row {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+}
+
+.diag-left {
+  flex: 1.2;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.diag-right {
+  flex: 0.8;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.diag-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.event-list { display: flex; flex-direction: column; gap: 10px; }
+
+.evt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--hazard);
+}
+
+.evt.ref { border-left-color: var(--refusal); }
+.evt.ok { border-left-color: var(--field-say); }
+
+.evt-wk {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 40px;
+  padding-top: 1px;
+}
+
+.evt-body h4 { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+.evt-body p { font-size: 12px; color: var(--text-dim); line-height: 1.45; }
+
+.evt-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+.evt-tag.red { background: rgba(239,68,68,0.15); color: var(--hazard); }
+.evt-tag.purple { background: rgba(168,85,247,0.15); color: var(--refusal); }
+.evt-tag.green { background: rgba(16,185,129,0.15); color: var(--field-say); }
+
+/* Score + bars */
+.score-display { text-align: center; margin-bottom: 20px; }
+
+.score-num {
+  font-size: 56px;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.score-label { font-size: 12px; color: var(--text-dim); }
+
+.f-bars { display: flex; flex-direction: column; gap: 8px; }
+
+.f-bar-row { display: flex; align-items: center; gap: 10px; }
+
+.f-bar-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  width: 30px;
+}
+
+.f-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.f-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+.f-bar-val {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  width: 30px;
+  text-align: right;
+}
+
+.diag-text {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.diag-detail {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════
+   SECTION 4 — DATA MAPPING
+   ══════════════════════════════════════ */
+
+.data-map {
+  margin-top: 48px;
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.map-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  border-top: 3px solid transparent;
+}
+
+.map-col.is-m { border-top-color: var(--field-is); }
+.map-col.do-m { border-top-color: var(--field-do); }
+.map-col.say-m { border-top-color: var(--field-say); }
+
+.map-col h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.map-col.is-m h4 { color: var(--field-is); }
+.map-col.do-m h4 { color: var(--field-do); }
+.map-col.say-m h4 { color: var(--field-say); }
+
+.map-item {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--surface-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-item:last-child { border-bottom: none; }
+
+.map-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.map-col.is-m .map-dot { background: var(--field-is); }
+.map-col.do-m .map-dot { background: var(--field-do); }
+.map-col.say-m .map-dot { background: var(--field-say); }
+
+.map-source {
+  margin-top: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* ══════════════════════════════════════
+   SECTION 5 — INTERVENTION LOGIC
+   ══════════════════════════════════════ */
+
+.interventions {
+  margin-top: 48px;
+}
+
+.int-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.int-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.int-trigger {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.int-card.is-int .int-trigger { background: rgba(59,130,246,0.15); color: var(--field-is); }
+.int-card.do-int .int-trigger { background: rgba(245,158,11,0.15); color: var(--field-do); }
+.int-card.say-int .int-trigger { background: rgba(16,185,129,0.15); color: var(--field-say); }
+
+.int-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.int-card .int-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.int-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.int-action {
+  font-size: 12px;
+  color: var(--text);
+  padding: 8px 12px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.int-action-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.int-card .int-existing {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════
+   SECTION 6 — ROADMAP
+   ══════════════════════════════════════ */
+
+.roadmap {
+  margin-top: 56px;
+  padding-bottom: 72px;
+}
+
+.road-phases {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.phase {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+
+.phase-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.phase h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.phase p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.phase-tag {
+  margin-top: 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.phase:nth-child(1) .phase-tag { background: rgba(59,130,246,0.15); color: var(--field-is); }
+.phase:nth-child(2) .phase-tag { background: rgba(245,158,11,0.15); color: var(--field-do); }
+.phase:nth-child(3) .phase-tag { background: rgba(16,185,129,0.15); color: var(--money); }
+
+.phase-arrow {
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--text-muted);
+  z-index: 2;
+}
+
+/* ── Footer CTA ── */
+.cta-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 64px;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.08));
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.cta-box h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cta-box p {
+  font-size: 14px;
+  color: var(--text-dim);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .section, .cta-bar { padding-left: 20px; padding-right: 20px; }
+  .hero h1 { font-size: 26px; }
+  .revenue-bar { flex-direction: column; }
+  .explainer-box { flex-direction: column; gap: 24px; }
+  .fields-bar { flex-direction: column; }
+  .map-grid { grid-template-columns: 1fr; }
+  .int-grid { grid-template-columns: 1fr; }
+  .road-phases { flex-direction: column; }
+  .diag-row { flex-direction: column; }
+  .dash-controls { flex-direction: column; align-items: flex-start; }
+  .view-toggle { margin-left: 0; }
+  .phase-arrow { display: none; }
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rev-card, .field-card, .map-col, .int-card, .phase {
+  animation: fadeUp 0.4s ease both;
+}
+
+.rev-card:nth-child(2), .field-card:nth-child(2), .map-col:nth-child(2), .int-card:nth-child(2), .phase:nth-child(2) { animation-delay: 0.05s; }
+.rev-card:nth-child(3), .field-card:nth-child(3), .map-col:nth-child(3), .int-card:nth-child(3), .phase:nth-child(3) { animation-delay: 0.1s; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SECTION 1 — THE BLIND SPOT
+     ══════════════════════════════════════ -->
+
+<div class="section hero">
+  <div class="hero-label">Three-Field Retention Intelligence</div>
+  <h1>You're watching one signal.<br>You're <strong>missing the other two.</strong></h1>
+  <p class="hero-sub">Your platform measures physical output. That's one of three fields that determine whether an athlete stays or disappears. The other two — life structure and declared intent — sit in data you already collect but don't use.</p>
+
+  <div class="revenue-bar">
+    <div class="rev-card">
+      <div class="rev-label">Annual churn you can't explain</div>
+      <div class="rev-value loss">~30%</div>
+      <div class="rev-note">Industry avg. for fitness subscriptions. Users leave with healthy metrics.</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-label">Currently diagnosable</div>
+      <div class="rev-value blind">1 of 3 fields</div>
+      <div class="rev-note">Physical output only. Social and intent signals treated as features, not diagnostics.</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-label">Detectable with three-field model</div>
+      <div class="rev-value opp">3 of 3 fields</div>
+      <div class="rev-note">Zero new data collection. Diagnostic layer on existing data.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 2 — HOW THE SCORE WORKS
+     ══════════════════════════════════════ -->
+
+<div class="section explainer">
+  <div class="explainer-box">
+    <div class="explainer-left">
+      <div class="sec-label">How the score works</div>
+      <div class="sec-title">The three fields multiply — they don't average.</div>
+      <div class="sec-body">
+        Each field runs from 0 (collapsed) to 1 (fully healthy). The combined score is the product of all three. This means <strong>any single field near zero drags the entire score toward zero</strong> — even if the other two are perfect. An athlete with a strong body and clear schedule but no reason to ride isn't "two-thirds okay." They're about to quit.
+      </div>
+    </div>
+    <div class="explainer-right">
+      <div class="ex-compare">
+        <div class="ex-block">
+          <div class="ex-block-label">Average (what most models do)</div>
+          <div class="ex-calc">( 0.90 + 0.90 + <span class="ex-danger">0.20</span> ) ÷ 3</div>
+          <div class="ex-result safe">= 0.67 <span class="ex-verdict">"Looks okay"</span></div>
+        </div>
+        <div class="ex-block">
+          <div class="ex-block-label">Product (three-field model)</div>
+          <div class="ex-calc">0.90 × 0.90 × <span class="ex-danger">0.20</span></div>
+          <div class="ex-result danger">= 0.162 <span class="ex-verdict">"Near collapse"</span></div>
+        </div>
+      </div>
+      <div class="ex-footnote">One field failing means the whole system is failing. The product catches what averaging hides.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 3 — DASHBOARD + SCENARIOS
+     ══════════════════════════════════════ -->
+
+<div class="section">
+  <div class="fields-bar">
+    <div class="field-card is-c">
+      <div class="f-name">IS — What is</div>
+      <div class="f-full">Physical State</div>
+      <div class="f-desc">Power, HR, fatigue, output, conditions. The body and the world it meets.</div>
+      <div class="f-value" id="is-val" style="color:var(--field-is)">0.88</div>
+    </div>
+    <div class="field-card do-c">
+      <div class="f-name">DO — What they do</div>
+      <div class="f-full">Life Structure</div>
+      <div class="f-desc">Clubs, races, group rides, schedule patterns. Institutional and social behavior.</div>
+      <div class="f-value" id="do-val" style="color:var(--field-do)">0.85</div>
+    </div>
+    <div class="field-card say-c">
+      <div class="f-name">SAY — What they say</div>
+      <div class="f-full">Declared Intent</div>
+      <div class="f-desc">Goals set vs completed. Events registered vs ridden. The commitment signal.</div>
+      <div class="f-value" id="say-val" style="color:var(--field-say)">0.80</div>
+    </div>
+  </div>
+
+  <div class="dash-area">
+    <div class="dash-controls">
+      <div class="user-tabs">
+        <button class="user-tab active" data-a="0">Sustained User</button>
+        <button class="user-tab" data-a="1">Social Drift</button>
+        <button class="user-tab" data-a="2">Meaning Loss</button>
+      </div>
+      <div class="view-toggle">
+        <button class="v-btn active" data-v="three">Three-Field View</button>
+        <button class="v-btn" data-v="plat">Your Current View</button>
+      </div>
+    </div>
+
+    <div class="chart-box">
+      <div class="chart-head">
+        <div>
+          <div class="chart-t">24-Week Retention Timeline</div>
+          <div class="chart-st" id="chart-st">All three fields — combined score reflects overall state</div>
+        </div>
+        <div class="legend" id="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--field-is)"></div>IS</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--field-do)"></div>DO</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--field-say)"></div>SAY</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--combined)"></div>Combined</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--hazard)"></div>At Risk</div>
+        </div>
+      </div>
+      <canvas id="mainChart"></canvas>
+      <div class="plat-overlay" id="platOverlay">
+        <h3>This is what your platform sees today</h3>
+        <p id="plat-text">One field. Physical output looks healthy.</p>
+        <canvas id="platChart"></canvas>
+      </div>
+    </div>
+
+    <div class="diag-row">
+      <div class="diag-left">
+        <div class="diag-title">Detected Events</div>
+        <div class="event-list" id="event-list"></div>
+        <div class="diag-text" id="d-text"></div>
+        <div class="diag-detail" id="d-detail"></div>
+      </div>
+      <div class="diag-right">
+        <div class="score-display">
+          <div class="score-num" id="score-num">0.598</div>
+          <div class="score-label">Combined Score</div>
+        </div>
+        <div class="f-bars">
+          <div class="f-bar-row">
+            <span class="f-bar-name" style="color:var(--field-is)">IS</span>
+            <div class="f-bar-track"><div class="f-bar-fill" id="b-is" style="background:var(--field-is)"></div></div>
+            <span class="f-bar-val" id="bv-is">0.88</span>
+          </div>
+          <div class="f-bar-row">
+            <span class="f-bar-name" style="color:var(--field-do)">DO</span>
+            <div class="f-bar-track"><div class="f-bar-fill" id="b-do" style="background:var(--field-do)"></div></div>
+            <span class="f-bar-val" id="bv-do">0.85</span>
+          </div>
+          <div class="f-bar-row">
+            <span class="f-bar-name" style="color:var(--field-say)">SAY</span>
+            <div class="f-bar-track"><div class="f-bar-fill" id="b-say" style="background:var(--field-say)"></div></div>
+            <span class="f-bar-val" id="bv-say">0.80</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 4 — DATA MAPPING
+     ══════════════════════════════════════ -->
+
+<div class="section data-map">
+  <div class="sec-label">Data you already collect</div>
+  <div class="sec-title">Zero new infrastructure. Three new signals.</div>
+
+  <div class="map-grid">
+    <div class="map-col is-m">
+      <h4>IS — Physical State</h4>
+      <div class="map-item"><div class="map-dot"></div>Power output / watts</div>
+      <div class="map-item"><div class="map-dot"></div>Heart rate data</div>
+      <div class="map-item"><div class="map-dot"></div>Ride duration & distance</div>
+      <div class="map-item"><div class="map-dot"></div>Elevation / climbing</div>
+      <div class="map-item"><div class="map-dot"></div>Speed trends</div>
+      <div class="map-item"><div class="map-dot"></div>Training load / TSS</div>
+      <div class="map-item"><div class="map-dot"></div>Rest day frequency</div>
+      <div class="map-source">Already used for fitness scoring</div>
+    </div>
+    <div class="map-col do-m">
+      <h4>DO — Life Structure</h4>
+      <div class="map-item"><div class="map-dot"></div>Group ride participation</div>
+      <div class="map-item"><div class="map-dot"></div>Club membership activity</div>
+      <div class="map-item"><div class="map-dot"></div>Race / event entries</div>
+      <div class="map-item"><div class="map-dot"></div>Social follow / follower changes</div>
+      <div class="map-item"><div class="map-dot"></div>Segment attempt frequency</div>
+      <div class="map-item"><div class="map-dot"></div>Ride time-of-day patterns</div>
+      <div class="map-item"><div class="map-dot"></div>Solo vs. group ride ratio</div>
+      <div class="map-source">Collected but used as social features only</div>
+    </div>
+    <div class="map-col say-m">
+      <h4>SAY — Declared Intent</h4>
+      <div class="map-item"><div class="map-dot"></div>Goals set vs. completed</div>
+      <div class="map-item"><div class="map-dot"></div>Events registered vs. attended</div>
+      <div class="map-item"><div class="map-dot"></div>Training plan adherence</div>
+      <div class="map-item"><div class="map-dot"></div>Profile / bio updates</div>
+      <div class="map-item"><div class="map-dot"></div>Ride title / description activity</div>
+      <div class="map-item"><div class="map-dot"></div>Kudos / comment engagement</div>
+      <div class="map-item"><div class="map-dot"></div>Challenge sign-up vs. completion</div>
+      <div class="map-source">Collected but not used diagnostically</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 5 — INTERVENTION LOGIC
+     ══════════════════════════════════════ -->
+
+<div class="section interventions">
+  <div class="sec-label">Different collapse, different response</div>
+  <div class="sec-title">The diagnostic tells you what to do — not just who's at risk.</div>
+
+  <div class="int-grid">
+    <div class="int-card is-int">
+      <div class="int-trigger">IS field declining</div>
+      <h4>Physical Degradation</h4>
+      <div class="int-desc">Body is failing. Overtraining, injury risk, or fatigue accumulation. DO and SAY may still be strong — the athlete wants to ride but shouldn't.</div>
+      <div class="int-actions">
+        <div class="int-action"><span class="int-action-icon">↓</span> Reduce training plan intensity</div>
+        <div class="int-action"><span class="int-action-icon">⟳</span> Suggest recovery week</div>
+        <div class="int-action"><span class="int-action-icon">⚡</span> Flag injury risk</div>
+      </div>
+      <div class="int-existing">Your platform already handles this reasonably well.</div>
+    </div>
+    <div class="int-card do-int">
+      <div class="int-trigger">DO field declining</div>
+      <h4>Structural Drift</h4>
+      <div class="int-desc">Life structure is pulling away. Group rides dropping, club activity fading, schedule fragmenting. Body is fine. Intent may still be there. The athlete is isolating.</div>
+      <div class="int-actions">
+        <div class="int-action"><span class="int-action-icon">👥</span> Surface group ride invitations</div>
+        <div class="int-action"><span class="int-action-icon">🏁</span> Suggest local events or challenges</div>
+        <div class="int-action"><span class="int-action-icon">↔</span> Prompt schedule flexibility tools</div>
+      </div>
+      <div class="int-existing">Your platform currently has no trigger for this.</div>
+    </div>
+    <div class="int-card say-int">
+      <div class="int-trigger">SAY field declining</div>
+      <h4>Meaning Withdrawal</h4>
+      <div class="int-desc">The athlete has stopped declaring intent. Goals unset, events unregistered, engagement with future commitments gone quiet. Body and schedule may look fine. The moon has left orbit.</div>
+      <div class="int-actions">
+        <div class="int-action"><span class="int-action-icon">⏸</span> Reduce prescription pressure</div>
+        <div class="int-action"><span class="int-action-icon">◯</span> Surface a reflection moment, not a goal</div>
+        <div class="int-action"><span class="int-action-icon">✓</span> Validate rest as a legitimate state</div>
+      </div>
+      <div class="int-existing">Your platform currently has no model for this.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 6 — ROADMAP
+     ══════════════════════════════════════ -->
+
+<div class="section roadmap">
+  <div class="sec-label">Roadmap</div>
+  <div class="sec-title">From retention tool to platform differentiator to licensable framework.</div>
+
+  <div class="road-phases">
+    <div class="phase">
+      <div class="phase-num">Phase 1</div>
+      <h4>Backend Retention Engine</h4>
+      <p>Diagnostic layer on existing data. Product team sees three-field scores across user base. Flags at-risk users by collapse type. Powers targeted interventions. Reduces unexplained churn.</p>
+      <div class="phase-tag">Internal tool — immediate value</div>
+      <div class="phase-arrow">→</div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Phase 2</div>
+      <h4>User-Facing Insights</h4>
+      <p>Simplified three-field view for athletes. "Your body is ready but your schedule is tight this week." Premium feature tier. Differentiates from every competitor who only shows fitness metrics.</p>
+      <div class="phase-tag">Premium feature — subscription value</div>
+      <div class="phase-arrow">→</div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Phase 3</div>
+      <h4>Licensable Framework</h4>
+      <p>IS–DO–SAY applies anywhere users engage over time: fitness, education, workplace, health. Three-field retention intelligence as a licensable diagnostic layer for any engagement platform.</p>
+      <div class="phase-tag">Platform play — market expansion</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<div class="cta-bar">
+  <div class="cta-box">
+    <h3>Your users are telling you three things. You're only hearing one.</h3>
+    <p>The data already exists. The diagnostic layer is ready. We'd like 30 minutes with your product team to show what it reveals about your users that you currently can't see.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════ -->
+
+<script>
+const athletes = [
+  {
+    name: "Sustained User",
+    platText: "Physical output looks exceptional and consistent. Your platform sees a healthy, high-performing user. Correct — but it can't tell you why they sustain when others don't.",
+    is: [0.88,0.87,0.89,0.86,0.88,0.90,0.87,0.88,0.86,0.89,0.91,0.88,0.87,0.89,0.88,0.90,0.87,0.86,0.88,0.89,0.87,0.88,0.90,0.88],
+    do: [0.84,0.83,0.85,0.84,0.86,0.85,0.83,0.84,0.85,0.86,0.84,0.85,0.83,0.84,0.86,0.85,0.84,0.83,0.85,0.84,0.86,0.85,0.84,0.85],
+    say:[0.80,0.81,0.79,0.80,0.82,0.81,0.80,0.79,0.81,0.80,0.82,0.81,0.80,0.79,0.80,0.81,0.82,0.80,0.79,0.81,0.80,0.82,0.81,0.80],
+    events: [
+      { wk:"W1–24", type:"ok", title:"All three fields stable", desc:"No degradation across 24 weeks. Combined score steady. This user retains.", tag:"RETAINS", cls:"green" }
+    ],
+    diag: "This user retains. Three-field alignment sustained.",
+    detail: "IS, DO, and SAY held steady across the full window. Physical output is supported by stable life structure and consistent declared intent. Your platform correctly sees a healthy user — but can't explain why they stay when similar-looking users leave. The three-field model can."
+  },
+  {
+    name: "Social Drift — DO Collapse",
+    platText: "Power numbers steady. Training load normal. Your platform says this user is fine. They'll churn within 8 weeks and you won't see it coming.",
+    is: [0.85,0.86,0.87,0.85,0.86,0.88,0.87,0.86,0.85,0.87,0.86,0.85,0.86,0.87,0.85,0.84,0.83,0.82,0.80,0.78,0.75,0.72,0.68,0.64],
+    do: [0.82,0.80,0.78,0.75,0.71,0.67,0.62,0.58,0.53,0.48,0.44,0.40,0.37,0.34,0.31,0.28,0.26,0.24,0.22,0.20,0.18,0.16,0.15,0.14],
+    say:[0.79,0.79,0.78,0.78,0.77,0.76,0.75,0.74,0.73,0.72,0.70,0.68,0.65,0.62,0.58,0.54,0.50,0.46,0.42,0.38,0.34,0.30,0.26,0.22],
+    events: [
+      { wk:"W5", type:"hz", title:"DO field degradation begins", desc:"Group ride participation drops. Club interactions decline. Race entries stop. IS remains strong.", tag:"DO-DRIFT", cls:"red" },
+      { wk:"W10", type:"hz", title:"SAY field following", desc:"Goal-setting drops. Event registrations stop. The intent layer goes quiet. IS still looks normal.", tag:"SAY-FOLLOW", cls:"red" },
+      { wk:"W18", type:"ref", title:"Combined score below threshold", desc:"Score drops below 0.10. Platform still shows healthy fitness. This user needs a social intervention, not a training plan.", tag:"CHURN RISK", cls:"purple" }
+    ],
+    diag: "Structural collapse. Churn imminent.",
+    detail: "DO began degrading at week 5. Physical output masked the decline for 13 weeks. SAY followed — when structure disappears, intent erodes. By week 18 the combined score collapsed. Your platform would flag this user only when they cancel. The three-field model identifies the cause 13 weeks earlier: this isn't a fitness problem. It's a life structure problem. The intervention is social, not physical."
+  },
+  {
+    name: "Meaning Loss — SAY Collapse",
+    platText: "Power output solid. Rides consistent. Your platform sees nothing wrong. This user will quit within 8 weeks and you won't know why.",
+    is: [0.86,0.87,0.85,0.86,0.88,0.87,0.86,0.85,0.87,0.86,0.85,0.86,0.85,0.84,0.83,0.82,0.80,0.78,0.76,0.73,0.70,0.66,0.62,0.58],
+    do: [0.83,0.82,0.83,0.84,0.83,0.82,0.83,0.82,0.81,0.82,0.81,0.80,0.79,0.78,0.77,0.76,0.74,0.72,0.70,0.67,0.64,0.61,0.58,0.55],
+    say:[0.78,0.75,0.70,0.64,0.57,0.50,0.43,0.36,0.30,0.25,0.20,0.17,0.14,0.12,0.10,0.09,0.08,0.07,0.07,0.06,0.06,0.05,0.05,0.05],
+    events: [
+      { wk:"W3", type:"hz", title:"SAY field rapid decline", desc:"Goal completion drops sharply. New goals stop being set. Event registrations go to zero. The intent layer is withdrawing.", tag:"SAY-LOSS", cls:"red" },
+      { wk:"W8", type:"hz", title:"IS and DO still masking", desc:"Physical output steady. Schedule unchanged. Platform metrics: all green. Combined score: 0.11 and falling.", tag:"BLIND SPOT", cls:"red" },
+      { wk:"W14", type:"ref", title:"Full meaning withdrawal", desc:"SAY at floor. No goals, no declarations, no future engagement. Body and structure beginning to follow. They always do.", tag:"CHURN RISK", cls:"purple" }
+    ],
+    diag: "Meaning withdrawal. Invisible to current metrics.",
+    detail: "SAY collapsed first and fastest. This user stopped declaring intent — goals unset, events unregistered, future commitments withdrawn. Body and schedule held for weeks after meaning left. By the time IS and DO visibly degrade, the user has been gone for months. The intervention isn't a harder plan or a social nudge. It's recognizing the relationship to the activity has changed. The right response may be to stop prescribing."
+  }
+];
+
+let curA = 0, curV = 'three';
+
+function conj(i,d,s){ return i*d*s; }
+
+function drawMain(idx){
+  const c = document.getElementById('mainChart');
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio||1;
+  const w = c.parentElement.getBoundingClientRect().width - 56;
+  const h = 320;
+  c.width = w*dpr; c.height = h*dpr;
+  c.style.width = w+'px'; c.style.height = h+'px';
+  ctx.scale(dpr,dpr); ctx.clearRect(0,0,w,h);
+
+  const a = athletes[idx];
+  const n = a.is.length;
+  const pL=36, pR=16, pT=16, pB=30;
+  const cW=w-pL-pR, cH=h-pT-pB;
+
+  // grid
+  ctx.strokeStyle='#1e2028'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pT+(cH/4)*i;
+    ctx.beginPath(); ctx.moveTo(pL,y); ctx.lineTo(w-pR,y); ctx.stroke();
+  }
+  // y labels
+  ctx.fillStyle='#4a4d58'; ctx.font='10px "Space Mono",monospace'; ctx.textAlign='right';
+  for(let i=0;i<=4;i++) ctx.fillText((1-i*0.25).toFixed(2),pL-6,pT+(cH/4)*i+3);
+  // x labels
+  ctx.textAlign='center';
+  for(let i=0;i<n;i+=4) ctx.fillText('W'+(i+1),pL+(cW/(n-1))*i,h-6);
+
+  // threshold
+  const tY=pT+cH*(1-0.15);
+  ctx.strokeStyle='rgba(239,68,68,0.25)'; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(pL,tY); ctx.lineTo(w-pR,tY); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(239,68,68,0.4)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+  ctx.fillText('risk threshold',pL+4,tY-5);
+
+  const cn = a.is.map((v,i)=>conj(v,a.do[i],a.say[i]));
+
+  // conjunction fill
+  ctx.fillStyle='rgba(232,233,237,0.03)';
+  ctx.beginPath(); ctx.moveTo(pL,pT+cH);
+  for(let i=0;i<cn.length;i++) ctx.lineTo(pL+(cW/(n-1))*i, pT+cH*(1-cn[i]));
+  ctx.lineTo(pL+cW,pT+cH); ctx.closePath(); ctx.fill();
+
+  // hazard zones
+  for(let i=0;i<cn.length;i++){
+    if(cn[i]<0.15){
+      const x=pL+(cW/(n-1))*i, bw=cW/(n-1);
+      ctx.fillStyle='rgba(239,68,68,0.06)';
+      ctx.fillRect(x-bw/2,pT,bw,cH);
+    }
+  }
+
+  function line(d,col,lw){
+    ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.lineJoin='round'; ctx.lineCap='round';
+    ctx.beginPath();
+    for(let i=0;i<d.length;i++){
+      const x=pL+(cW/(n-1))*i, y=pT+cH*(1-d[i]);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+
+  line(a.is,'rgba(59,130,246,0.75)',1.8);
+  line(a.do,'rgba(245,158,11,0.75)',1.8);
+  line(a.say,'rgba(16,185,129,0.75)',1.8);
+  line(cn,'rgba(232,233,237,0.85)',2.2);
+
+  for(let i=0;i<cn.length;i++){
+    const x=pL+(cW/(n-1))*i, y=pT+cH*(1-cn[i]);
+    ctx.fillStyle=cn[i]<0.15?'#ef4444':'rgba(232,233,237,0.5)';
+    ctx.beginPath(); ctx.arc(x,y,cn[i]<0.15?3.5:2,0,Math.PI*2); ctx.fill();
+  }
+}
+
+function drawPlat(idx){
+  const c=document.getElementById('platChart');
+  const ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const pw=Math.min(500, c.parentElement?c.parentElement.getBoundingClientRect().width-48:300);
+  const ph=90;
+  c.width=pw*dpr; c.height=ph*dpr;
+  c.style.width=pw+'px'; c.style.height=ph+'px';
+  ctx.scale(dpr,dpr); ctx.clearRect(0,0,pw,ph);
+
+  const a=athletes[idx], n=a.is.length;
+  const pL=8,pR=8,pT=8,pB=18;
+  const cW=pw-pL-pR, cH=ph-pT-pB;
+
+  ctx.strokeStyle='rgba(59,130,246,0.85)'; ctx.lineWidth=2.2;
+  ctx.lineJoin='round'; ctx.lineCap='round'; ctx.beginPath();
+  for(let i=0;i<n;i++){
+    const x=pL+(cW/(n-1))*i, y=pT+cH*(1-a.is[i]);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  ctx.fillStyle='rgba(59,130,246,0.6)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+  ctx.fillText('Physical output — the only signal visible',pL,ph-3);
+}
+
+function update(){
+  const a=athletes[curA];
+  const last=a.is.length-1;
+  const li=a.is[last], ld=a.do[last], ls=a.say[last];
+  const lc=conj(li,ld,ls);
+
+  document.getElementById('is-val').textContent=li.toFixed(2);
+  document.getElementById('do-val').textContent=ld.toFixed(2);
+  document.getElementById('say-val').textContent=ls.toFixed(2);
+
+  drawMain(curA); drawPlat(curA);
+
+  const ov=document.getElementById('platOverlay');
+  if(curV==='plat'){ ov.classList.add('visible'); document.getElementById('plat-text').textContent=a.platText; }
+  else ov.classList.remove('visible');
+
+  document.getElementById('legend').style.opacity=curV==='plat'?'0':'1';
+  document.getElementById('chart-st').textContent=curV==='plat'?'Your current view — physical output only':'All three fields — combined score reflects overall state';
+
+  // events
+  const el=document.getElementById('event-list');
+  el.innerHTML='';
+  a.events.forEach(e=>{
+    el.innerHTML+=`<div class="evt ${e.type==='ref'?'ref':e.type==='ok'?'ok':''}">
+      <div class="evt-wk">${e.wk}</div>
+      <div class="evt-body"><h4>${e.title}</h4><p>${e.desc}</p><div class="evt-tag ${e.cls}">${e.tag}</div></div>
+    </div>`;
+  });
+
+  document.getElementById('d-text').textContent=a.diag;
+  document.getElementById('d-detail').textContent=a.detail;
+
+  const sn=document.getElementById('score-num');
+  sn.textContent=lc.toFixed(3);
+  sn.style.color=lc<0.15?'var(--hazard)':lc<0.4?'var(--field-do)':'var(--text)';
+
+  document.getElementById('b-is').style.width=(li*100)+'%';
+  document.getElementById('b-do').style.width=(ld*100)+'%';
+  document.getElementById('b-say').style.width=(ls*100)+'%';
+  document.getElementById('bv-is').textContent=li.toFixed(2);
+  document.getElementById('bv-do').textContent=ld.toFixed(2);
+  document.getElementById('bv-say').textContent=ls.toFixed(2);
+}
+
+document.querySelectorAll('.user-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.user-tab').forEach(b=>b.classList.remove('active'));
+    t.classList.add('active'); curA=parseInt(t.dataset.a); update();
+  });
+});
+
+document.querySelectorAll('.v-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.v-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); curV=b.dataset.v; update();
+  });
+});
+
+window.addEventListener('resize',()=>update());
+update();
+</script>
+
+</body>
+</html>
